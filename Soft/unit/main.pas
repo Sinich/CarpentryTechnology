@@ -4,8 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs,
-  uCnc;
+  Dialogs, uCnc;
 
 type
   TMainForm = class(TForm)
@@ -24,6 +23,8 @@ procedure TMainForm.FormCreate(Sender: TObject);
 begin
   MainForm.Position:= poDesktopCenter; //форма по центру
   MainForm.BorderStyle:= bsSingle;//форме нельзя менять размеры
+
+  Cnc:= TCnc.Create;
 end;
 
 end.
