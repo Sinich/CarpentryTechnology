@@ -14,7 +14,7 @@ type
     imgComputer: TImage;
     procedure InitComputer;
 
-    procedure Click(Sender : TObject);
+    procedure Click(Sender: TObject);
     procedure MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure MouseMove(Sender: TObject; Shift: TShiftState; X,
@@ -75,9 +75,9 @@ begin
   inherited Destroy;
 end;
 
-procedure TCnc.Click(Sender : TObject);
+procedure TCnc.Click(Sender: TObject);
 begin
-
+  
 end;
 
 procedure TCnc.MouseDown(Sender: TObject; Button: TMouseButton;
@@ -91,6 +91,12 @@ begin
     X0:= x;
     Y0:= y;
   end;
+  if Button=mbMiddle then
+    ShowMessage('Нажата средняя кнопка мыши');
+  if Button=mbLeft then
+    ShowMessage('Нажата левая кнопка мыши');
+    if Button=mbRight then
+    ShowMessage('Нажата правая кнопка мыши');
 end;
 
 procedure TCnc.MouseMove(Sender: TObject; Shift: TShiftState; X,
