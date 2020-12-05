@@ -28,7 +28,7 @@ type
 
 resourcestring
   FileSettings = 'SettingsCarTech.ini';
-  CompBlue = 'CompBlue.bmp';
+  CompBlue = 'CompWork.bmp';
   Dir = 'Dir';
   Pictures = 'Pictures';
   Computer = 'Computer';
