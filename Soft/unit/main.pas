@@ -12,6 +12,10 @@ type
    
   end;
 
+const
+  fWidth: Integer = 1150;
+  fHeight: Integer = 650;
+
 var
   MainForm: TMainForm;
 
@@ -21,9 +25,13 @@ implementation
 
 procedure TMainForm.FormCreate(Sender: TObject);
 begin
-  MainForm.Position:= poDesktopCenter; //форма по центру
-  MainForm.BorderStyle:= bsSingle;//форме нельзя менять размеры
-
+  with MainForm do
+  begin
+    Width:= fWidth;
+    Height:= fHeight;
+    Position:= poDesktopCenter; //форма по центру
+    BorderStyle:= bsSingle; //форме нельзя менять размеры
+  end;
   Cnc:= TCnc.Create;
 end;
 

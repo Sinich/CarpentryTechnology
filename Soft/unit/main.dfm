@@ -1,8 +1,8 @@
 object MainForm: TMainForm
-  Left = 290
-  Top = 158
-  Width = 1150
-  Height = 650
+  Left = 440
+  Top = 245
+  Width = 878
+  Height = 513
   BorderIcons = [biSystemMenu, biMinimize]
   Caption = #1040#1057#1059#1058#1055' '#1057#1090#1086#1083#1103#1088#1085#1099#1077' '#1090#1077#1093#1085#1086#1083#1086#1075#1080#1080
   Color = clSilver

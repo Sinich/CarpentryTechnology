@@ -14,7 +14,10 @@ type
     imgComputer: TImage;
     procedure InitComputer;
 
-    procedure Click(Sender: TObject);
+    procedure MouseClickRight;
+    procedure MouseClickLeft(x, y: Integer);
+    procedure MouseClickMidle;
+
     procedure MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure MouseMove(Sender: TObject; Shift: TShiftState; X,
@@ -28,7 +31,7 @@ type
 
 resourcestring
   FileSettings = 'SettingsCarTech.ini';
-  CompBlue = 'CompWork.bmp';
+  CompWork = 'CompWork.bmp';
   Dir = 'Dir';
   Pictures = 'Pictures';
   Computer = 'Computer';
@@ -49,14 +52,13 @@ begin
   with TIniFile.Create(ExtractFilePath(Paramstr(0)) + FileSettings) do
     try
       with imgComputer.Picture.Bitmap do
-      LoadFromFile(ReadString(Dir, Pictures, '') + CompBlue);
+      LoadFromFile(ReadString(Dir, Pictures, '') + CompWork);
     finally
       Free;
     end;
    with imgComputer do
    begin
      Transparent:= True;
-     OnClick:= Click;
      OnMouseDown:= MouseDown;
      OnMouseMove:= MouseMove;
      OnMouseUp:= MouseUp;
@@ -75,28 +77,34 @@ begin
   inherited Destroy;
 end;
 
-procedure TCnc.Click(Sender: TObject);
+procedure TCnc.MouseClickRight;
 begin
-  
+  Move:= False;
+  ShowMessage('Правая мышь');
 end;
+
+procedure TCnc.MouseClickLeft(x, y: Integer);
+begin
+  Move:= True;
+  X0:= x;
+  Y0:= y;
+end;
+
+procedure TCnc.MouseClickMidle;
+begin
+  Move:= False;
+  ShowMessage('Центральная мышь');
+end;
+
 
 procedure TCnc.MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-  if Button <> mbRight then
-    Move:= False
-  else
-  begin
-    Move:= True;
-    X0:= x;
-    Y0:= y;
+  case Button of
+    mbRight:   MouseClickRight;
+    mbLeft:    MouseClickLeft(x, y);
+    mbMiddle:  MouseClickMidle;
   end;
-  if Button=mbMiddle then
-    ShowMessage('Нажата средняя кнопка мыши');
-  if Button=mbLeft then
-    ShowMessage('Нажата левая кнопка мыши');
-    if Button=mbRight then
-    ShowMessage('Нажата правая кнопка мыши');
 end;
 
 procedure TCnc.MouseMove(Sender: TObject; Shift: TShiftState; X,
