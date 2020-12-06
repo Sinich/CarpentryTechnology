@@ -4527,8 +4527,17 @@ object MainForm: TMainForm
     0000000000000000000000000000000000000000000000000000000000000000
     0000000000000000000000000000000000000000000000000000000000000000
     00000000000000000000}
+  Menu = MainMenu1
   OldCreateOrder = False
   OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
+  object MainMenu1: TMainMenu
+    Left = 16
+    Top = 24
+    object N1: TMenuItem
+      Caption = #1044#1086#1073#1072#1074#1080#1090#1100' '#1082#1086#1084#1087#1083#1077#1082#1089' '#1063#1055#1059
+      OnClick = N1Click
+    end
+  end
 end

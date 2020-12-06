@@ -12,7 +12,13 @@ type
     Move: Boolean;
     X0, Y0: Integer;
     imgComputer: TImage;
+    lblNumberComputer: TLabel;
+
     procedure InitComputer;
+    procedure InitNumberComputer(Number: Integer);
+    procedure SaveCoordinataComputer;
+    procedure LoadCoordinataComputer;
+    procedure ResizeNumberComputer;
 
     procedure MouseClickRight;
     procedure MouseClickLeft(x, y: Integer);
@@ -37,7 +43,8 @@ resourcestring
   Computer = 'Computer';
   ComputerLeft = 'Left';
   ComputerTop = 'Top';
-
+  ShriftNumberComputer = 'Arial';
+  
 var
   Cnc: TCnc;
 
@@ -45,6 +52,64 @@ implementation
 
 uses
   Main;
+
+procedure TCnc.ResizeNumberComputer;
+begin
+  with lblNumberComputer do
+  begin
+    Left:= imgComputer.Left - 30;
+    Width:= imgComputer.Width;
+    Top:= imgComputer.Top + imgComputer.Height - 55;
+  end;
+end;
+
+procedure TCnc.InitNumberComputer(Number: Integer);
+begin
+  lblNumberComputer:= TLabel.Create(MainForm);
+  with lblNumberComputer do
+  begin
+    with Font do
+    begin
+      Name:= ShriftNumberComputer;
+      Style:= [fsBold];
+      Color:= clBlack;
+      Pitch:= fpDefault;
+      Height:= 12;
+      Size:= 12;
+    end;
+    AutoSize:= False;
+    Caption:= IntToStr(Number);
+    Alignment:= taCenter;
+    Transparent:= True;
+    Parent:= MainForm;
+  end;
+  ResizeNumberComputer;
+end;
+
+procedure TCnc.LoadCoordinataComputer;
+begin
+  with TIniFile.Create(ExtractFilePath(Paramstr(0)) + FileSettings) do
+  try
+    with imgComputer do
+    begin
+      Left:= ReadInteger(Computer, ComputerLeft, 10);
+      Top:= ReadInteger(Computer, ComputerTop, 10);
+    end;
+  finally
+    Free;
+  end;
+end;
+
+procedure TCnc.SaveCoordinataComputer;
+begin
+  with TIniFile.Create(ExtractFilePath(Paramstr(0)) + FileSettings) do
+  try
+    WriteInteger(Computer, ComputerLeft, imgComputer.Left);
+    WriteInteger(Computer, ComputerTop, imgComputer.Top);
+  finally
+    Free;
+  end;
+end;
 
 procedure TCnc.InitComputer;
 begin
@@ -64,11 +129,13 @@ begin
      OnMouseUp:= MouseUp;
      Parent:= MainForm;
   end;
+  LoadCoordinataComputer;
 end;
 
 constructor TCnc.Create;
 begin
   InitComputer;
+  InitNumberComputer(1);
 end;
 
 destructor TCnc.Destroy;
@@ -114,9 +181,10 @@ begin
   begin
     with imgComputer do
     begin
-      Left:= imgComputer.Left + x - X0;
-      Top:= imgComputer.Top + y - Y0;
+      Left:= Left + x - X0;
+      Top:= Top + y - Y0;
     end;
+    ResizeNumberComputer;
   end;
 end;
 
@@ -124,13 +192,8 @@ procedure TCnc.MouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
   Move:= False;
-  with TIniFile.Create(ExtractFilePath(Paramstr(0)) + FileSettings) do
-  try
-    WriteInteger(Computer, ComputerLeft, imgComputer.Left);
-    WriteInteger(Computer, ComputerTop, imgComputer.Top);
-  finally
-    Free;
-  end;
+  SaveCoordinataComputer;
+  ResizeNumberComputer;
 end;
 
 end.
