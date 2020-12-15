@@ -4,7 +4,8 @@ uses
   Forms,
   main in 'main.pas' {MainForm},
   uCnc in 'uCnc.pas',
-  uZastavka in 'uZastavka.pas' {frmZastavka};
+  uZastavka in 'uZastavka.pas' {frmZastavka},
+  uRadminScript in 'uRadminScript.pas';
 
 {$R *.res}
 

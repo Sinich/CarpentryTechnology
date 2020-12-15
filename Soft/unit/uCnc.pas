@@ -4,21 +4,32 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls,
-  Dialogs, ExtCtrls, IniFiles, StdCtrls;
+  Dialogs, ExtCtrls, IniFiles, StdCtrls, uRadminScript;
 
 type
+  TFieldCnc = record
+    IP: string;
+    Port: string;
+    Login: string;
+    Password: string;
+  end;
+
   TCnc = class(TObject)
   private
     Move: Boolean;
     X0, Y0: Integer;
     imgComputer: TImage;
     lblNumberComputer: TLabel;
+    
+    FieldCnc: TFieldCnc;
+    Radmin: TRadmin;
 
     procedure InitComputer;
     procedure InitNumberComputer(Number: Integer);
     procedure SaveCoordinataComputer;
     procedure LoadCoordinataComputer;
     procedure ResizeNumberComputer;
+    procedure InitRadmin(IP, Port, Login, Password: string);
 
     procedure MouseClickRight;
     procedure MouseClickLeft(x, y: Integer);
@@ -52,6 +63,12 @@ implementation
 
 uses
   Main;
+
+procedure TCnc.InitRadmin(IP, Port, Login, Password: string);
+begin
+  //Radmin:= TRadmin.Create();
+
+end;
 
 procedure TCnc.ResizeNumberComputer;
 begin
